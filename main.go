@@ -93,10 +93,11 @@ func collectMetricsHandler(rw http.ResponseWriter, req *http.Request) {
 		key = program_name + "_" + key
 
 		switch val["mode"] {
-		case "gauge":
-		case "counter":
+		case "gauge", "counter":
+			log.Printf("metric '%s'", key)
 			metrictype := val["type"]
 			if metrictype != "int" {
+				log.Printf("skipping metric '%s' as it's not of type integer", key)
 				break
 			}
 
@@ -110,6 +111,8 @@ func collectMetricsHandler(rw http.ResponseWriter, req *http.Request) {
 			}
 
 			gauge.(prometheus.Gauge).Set(val["value"].(float64))
+			break
+		case "unixtime":
 			break
 		default:
 			log.Printf("metric '%s' without mode", key)
