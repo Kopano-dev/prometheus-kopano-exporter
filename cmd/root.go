@@ -31,6 +31,7 @@ const (
 var (
 	collectormap sync.Map
 	socketloc = "/tmp/kopano-prometheus.sock"
+	httpport = ":9099"
 )
 
 var rootCmd = &cobra.Command{
@@ -44,7 +45,7 @@ var rootCmd = &cobra.Command{
 	// Start promethes metrics
 	go func() {
 		http.Handle("/metrics", promhttp.Handler())
-		log.Fatal(http.ListenAndServe(":2112", nil))
+		log.Fatal(http.ListenAndServe(httpport, nil))
 	}()
 
     if err := os.RemoveAll(socketloc); err != nil {
@@ -100,7 +101,6 @@ func collectMetricsHandler(rw http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Println("cannot write to file");
 	}
-
 
 	// Parse JSON.
 	payload := make(map[string]interface{})
@@ -159,6 +159,7 @@ func collectMetricsHandler(rw http.ResponseWriter, req *http.Request) {
 
 func Execute() {
   rootCmd.Flags().StringVar(&socketloc, "socket-loc", socketloc, "Custom socket location")
+  rootCmd.Flags().StringVar(&httpport, "listen-address", httpport, "Address on which to expose metrics and web interface.")
 
   if err := rootCmd.Execute(); err != nil {
     fmt.Println(err)
