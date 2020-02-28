@@ -115,15 +115,27 @@ func collectMetricsHandler(rw http.ResponseWriter, req *http.Request) {
 	program_key := stats["program_name"].(map[string]interface{})
 	program_name := strings.ReplaceAll(program_key["value"].(string), "-", "_")
 
-	log.Println(program_name)
+	// Some metrics are prefixed with the program name such as 'dagent_deliver_junk'
+	strip_string := ""
+	if strings.HasPrefix(program_name, "kopano_") {
+		// Use split?
+		strip_string = strings.Replace(program_name, "kopano_", "", 1)
+		strip_string += "_"
+	}
+
+	log.Printf("Receiving metrics from %s", program_name)
 
 	for key, value := range stats {
 		val, _ := value.(map[string]interface{})
+
+		if strings.HasPrefix(key, strip_string) {
+			key = strings.Replace(key, strip_string, "", 1)
+		}
+
 		key = program_name + "_" + key
 
 		switch val["mode"] {
 		case "gauge", "counter":
-			log.Printf("metric '%s'", key)
 			metrictype := val["type"]
 			if metrictype != "int" {
 				log.Printf("skipping metric '%s' as it's not of type integer", key)
