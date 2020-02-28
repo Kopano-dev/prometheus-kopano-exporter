@@ -97,11 +97,6 @@ func collectMetricsHandler(rw http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-    err = ioutil.WriteFile("/tmp/dat1", body, 0644)
-	if err != nil {
-		log.Println("cannot write to file");
-	}
-
 	// Parse JSON.
 	payload := make(map[string]interface{})
 	if err := json.Unmarshal(body, &payload); err != nil {
