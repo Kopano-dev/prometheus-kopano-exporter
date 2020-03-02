@@ -1,6 +1,6 @@
 /*
  * SPDX-License-Identifier: AGPL-3.0-or-later
- * Copyright 2019 Kopano and its licensors
+ * Copyright 2020 Kopano and its licensors
  */
 
 package main
@@ -10,5 +10,6 @@ import (
 )
 
 func main() {
-  cmd.Execute()
+	cmd.RootCmd.AddCommand(commandServe())
+	cmd.RootCmd.Execute()
 }

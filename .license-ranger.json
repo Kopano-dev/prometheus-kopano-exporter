@@ -1,0 +1,4 @@
+{
+	"mode": "mod-vendor",
+	"header": "# Kopano Prometheus Exporter 3rd party licenses\n\nCopyright 2020 Kopano and its licensors. See LICENSE.txt for license information. This document contains a list of open source components used in this project.\n\n## Kopano Prometheus Exporter prometheus-kopano-exporter\n"
+}

@@ -1,0 +1,47 @@
+#!/bin/sh
+#
+# Kopano Prometheus Exporter (prometheus-kopano-exporter) launcher
+#
+# License: Apache-2.0
+# Copyright 2020 Kopano and its licensors
+#
+
+set -e
+
+# Base defines.
+
+EXE=/usr/libexec/kopano/prometheus-kopano-exporter
+
+# Handle parameters for configuration.
+
+case "${1}" in
+	serve)
+        # Inject values from environment into command line. This is mainly used
+        # when this script is run from systemd or docker.
+
+        shift
+
+        if [ -n "$listen" ]; then
+            set -- "$@" --listen-address="$listen"
+        fi
+
+        if [ -n "$socket" ]; then
+            set -- "$@" --listen-socket="$socket"
+        fi
+
+        if [ -n "$log_level" ]; then
+            set -- "$@" --log-level="$log_level"
+        fi
+
+		;;
+	*)
+		;;
+esac
+
+# Set executable.
+
+set -- ${EXE} "$@"
+
+# Run.
+
+exec "$@"
