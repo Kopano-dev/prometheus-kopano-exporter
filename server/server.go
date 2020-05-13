@@ -151,8 +151,6 @@ func (s *Server) Serve(ctx context.Context) error {
 		wg.Wait()
 		close(exitCh)
 	}()
-	shutDownCtxCancel()  // prevent leak.
-	shutDownCtxCancel2() // prevent leak.
 
 	// Cancel our own context,
 	serveCtxCancel()
@@ -173,6 +171,9 @@ func (s *Server) Serve(ctx context.Context) error {
 			}
 		}
 	}()
+
+	shutDownCtxCancel()  // prevent leak.
+	shutDownCtxCancel2() // prevent leak.
 
 	if errors.Is(err, http.ErrServerClosed) {
 		err = nil
