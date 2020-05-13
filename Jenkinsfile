@@ -30,7 +30,7 @@ pipeline {
 			steps {
 				echo 'Building..'
 				sh 'make DATE=reproducible'
-				sh './bin/promtheus-kopano-exporter version && sha256sum ./bin/prometheus-kopano-exporter'
+				sh './bin/prometheus-kopano-exporter version && sha256sum ./bin/prometheus-kopano-exporter'
 			}
 		}
 		stage('Dist') {
