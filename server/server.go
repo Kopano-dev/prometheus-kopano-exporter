@@ -151,8 +151,8 @@ func (s *Server) Serve(ctx context.Context) error {
 		wg.Wait()
 		close(exitCh)
 	}()
-    shutDownCtxCancel()  // prevent leak.
-    shutDownCtxCancel2() // prevent leak.
+	shutDownCtxCancel()  // prevent leak.
+	shutDownCtxCancel2() // prevent leak.
 
 	// Cancel our own context,
 	serveCtxCancel()

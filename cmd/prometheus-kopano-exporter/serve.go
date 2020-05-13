@@ -11,7 +11,7 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	"stash.kopano.com/kgol/prometheus-kopano-exporter/server"
+	"stash.kopano.io/kc/prometheus-kopano-exporter/server"
 )
 
 var (

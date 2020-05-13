@@ -1,4 +1,4 @@
-PACKAGE  = stash.kopano.io/kgol/prometheus-kopano-exporter
+PACKAGE  = stash.kopano.io/kc/prometheus-kopano-exporter
 PACKAGE_NAME = prometheus-kopano-exporter
 
 # Tools

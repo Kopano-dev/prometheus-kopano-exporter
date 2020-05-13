@@ -6,7 +6,7 @@
 package main
 
 import (
-	"stash.kopano.com/kgol/prometheus-kopano-exporter/cmd"
+	"stash.kopano.io/kc/prometheus-kopano-exporter/cmd"
 )
 
 func main() {
