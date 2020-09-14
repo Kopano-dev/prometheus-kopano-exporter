@@ -4,17 +4,23 @@ Description=Kopano Prometheus Exporter Daemon
 [Service]
 Type=simple
 PrivateTmp=yes
-User=kopanoexporter
+DynamicUser=yes
 Group=kopano
 NoNewPrivileges=yes
 PrivateUsers=yes
 CapabilityBoundingSet=
 ProtectSystem=full
-UMask=0077
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ReadWritePaths=/var/run/
+MemoryDenyWriteExecute=yes
+UMask=0007
 PermissionsStartOnly=true
 Environment=LC_CTYPE=en_US.UTF-8
+Environment=socket_path=/var/run/prometheus-kopano-exporter
 EnvironmentFile=-/etc/kopano/prometheus-kopano-exporter.cfg
 ExecStart=/usr/sbin/prometheus-kopano-exporter serve --log-timestamp=false
+ExecStartPre=/usr/sbin/prometheus-kopano-exporter setup
 
 [Install]
 WantedBy=multi-user.target

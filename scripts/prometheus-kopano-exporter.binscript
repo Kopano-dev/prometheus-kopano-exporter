@@ -15,11 +15,16 @@ EXE=/usr/libexec/kopano/prometheus-kopano-exporter
 # Handle parameters for configuration.
 
 case "${1}" in
+	setup)
+		mkdir -p "$socket_path" && chown ${USER}:kopano "$socket_path"
+
+		# Setup subcommand does nothing.
+		exit 0
+		;;
+
 	serve)
         # Inject values from environment into command line. This is mainly used
         # when this script is run from systemd or docker.
-
-        shift
 
         if [ -n "$listen" ]; then
             set -- "$@" --listen-address="$listen"
