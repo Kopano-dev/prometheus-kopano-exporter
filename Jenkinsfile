@@ -4,7 +4,10 @@ pipeline {
 	agent {
 		dockerfile {
 			filename 'Dockerfile.build'
-		 }
+		}
+	}
+	options {
+		copyArtifactPermission('prometheus-kopano-exporter-release')
 	}
 	stages {
 		stage('Bootstrap') {
