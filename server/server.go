@@ -9,7 +9,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net"
 	"net/http"
 	"os"
@@ -200,7 +200,7 @@ func (s *Server) collectMetricsHandler(rw http.ResponseWriter, req *http.Request
 		return
 	}
 
-	body, err := ioutil.ReadAll(http.MaxBytesReader(rw, req.Body, 1*1024*1024))
+	body, err := io.ReadAll(http.MaxBytesReader(rw, req.Body, 1*1024*1024))
 	if err != nil {
 		logger.WithError(err).Errorf("failed to read client data request")
 		fmt.Fprintln(rw, "failed to read client data request")
