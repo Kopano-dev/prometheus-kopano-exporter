@@ -1,6 +1,6 @@
 module stash.kopano.io/kc/prometheus-kopano-exporter
 
-go 1.14
+go 1.19
 
 require (
 	github.com/prometheus/client_golang v1.10.0
